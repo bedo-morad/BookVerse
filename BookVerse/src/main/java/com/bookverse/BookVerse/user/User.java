@@ -1,5 +1,7 @@
 package com.bookverse.BookVerse.user;
 
+import com.bookverse.BookVerse.book.Book;
+import com.bookverse.BookVerse.history.BookTransactionHistory;
 import com.bookverse.BookVerse.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -48,6 +50,12 @@ public class User implements UserDetails, Principal {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
+
+    @OneToMany(mappedBy = "user")
+    private List<BookTransactionHistory> histories;
 
     @Override
     public String getName() {
