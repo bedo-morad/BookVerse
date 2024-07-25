@@ -1,7 +1,7 @@
 package com.bookverse.BookVerse.book;
 
 import com.bookverse.BookVerse.common.BaseEntity;
-import com.bookverse.BookVerse.feedback.FeedBack;
+import com.bookverse.BookVerse.feedback.Feedback;
 import com.bookverse.BookVerse.history.BookTransactionHistory;
 import com.bookverse.BookVerse.user.User;
 import jakarta.persistence.*;
@@ -35,18 +35,18 @@ public class Book extends BaseEntity {
     private User owner;
 
     @OneToMany(mappedBy = "book")
-    private List<FeedBack> feedBacks;
+    private List<Feedback> feedbacks;
 
     @OneToMany(mappedBy = "book")
     private List<BookTransactionHistory> histories;
 
     @Transient
     public double getRate() {
-        if (feedBacks == null || feedBacks.isEmpty()) {
+        if (feedbacks == null || feedbacks.isEmpty()) {
             return 0.0;
         }
-        var rate = this.feedBacks.stream()
-                .mapToDouble(FeedBack::getNote)
+        var rate = this.feedbacks.stream()
+                .mapToDouble(Feedback::getNote)
                 .average()
                 .orElse(0.0);
         return Math.round(rate * 10.0) / 10.0;

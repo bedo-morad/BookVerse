@@ -148,7 +148,7 @@ public class BookService {
         }
         User user = ((User) connectedUser.getPrincipal());
         if (Objects.equals(book.getOwner().getId(), user.getId())) {
-            throw new OperationNotPermittedException("You can not borrow your own bock");
+            throw new OperationNotPermittedException("You can not borrow your own book");
         }
         final boolean isAlreadyBorrowed = bookTransactionHistoryRepository.isAlreadyBorrowedByUser(bookId, user.getId());
         if (isAlreadyBorrowed) {
@@ -171,7 +171,7 @@ public class BookService {
             throw new OperationNotPermittedException("The requested book is either archived or not shareable");
         }
         if (Objects.equals(book.getOwner().getId(), user.getId())) {
-            throw new OperationNotPermittedException("You can not return your own bock");
+            throw new OperationNotPermittedException("You can not return your own book");
         }
         BookTransactionHistory bookTransactionHistory = bookTransactionHistoryRepository
                 .findByBookIdAndUserId(bookId, user.getId())
@@ -188,7 +188,7 @@ public class BookService {
             throw new OperationNotPermittedException("The requested book is either archived or not shareable");
         }
         if (Objects.equals(book.getOwner().getId(), user.getId())) {
-            throw new OperationNotPermittedException("You can not return your own bock");
+            throw new OperationNotPermittedException("You can not return your own book");
         }
         BookTransactionHistory bookTransactionHistory = bookTransactionHistoryRepository
                 .findByBookIdAndOwnerId(bookId, user.getId())
