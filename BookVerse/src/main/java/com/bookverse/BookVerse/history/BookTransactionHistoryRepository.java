@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
@@ -29,7 +30,7 @@ public interface BookTransactionHistoryRepository extends JpaRepository<BookTran
             and bookTransactionHistory.book.id = :bookId
             and bookTransactionHistory.returnApproved = false
             """)
-    boolean isAlreadyBorrowedByUser(Integer bookId, Integer userId);
+    boolean isAlreadyBorrowedByUser(@Param("bookId") Integer bookId,@Param("userId") Integer userId);
 
     @Query("""
             select transaction
@@ -39,7 +40,7 @@ public interface BookTransactionHistoryRepository extends JpaRepository<BookTran
             and transaction.returned =false
             and transaction.returnApproved =false
             """)
-    Optional<BookTransactionHistory> findByBookIdAndUserId(Integer bookId, Integer id);
+    Optional<BookTransactionHistory> findByBookIdAndUserId(@Param("bookId") Integer bookId,@Param("userId") Integer id);
 
     @Query("""
             select transaction
@@ -49,5 +50,5 @@ public interface BookTransactionHistoryRepository extends JpaRepository<BookTran
             and transaction.returned =true
             and transaction.returnApproved =false
             """)
-    Optional<BookTransactionHistory> findByBookIdAndOwnerId(Integer bookId, Integer id);
+    Optional<BookTransactionHistory> findByBookIdAndOwnerId(@Param("bookId") Integer bookId,@Param("userId") Integer id);
 }
