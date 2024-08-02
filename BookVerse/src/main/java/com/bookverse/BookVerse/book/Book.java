@@ -25,6 +25,7 @@ public class Book extends BaseEntity {
     private String title;
     private String authorName;
     private String isbn;
+    @Column(length = 1024)
     private String synopsis;
     private String bookCover;
     private boolean archived;

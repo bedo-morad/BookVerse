@@ -1,0 +1,25 @@
+<div class="d-flex justify-content-between mt-2">
+  <h3>My Books</h3>
+  <div class="d-flex justify-content-end">
+    <a routerLink="/books/manage" class="btn btn-outline-primary">
+      <i class="fas fa-plus"></i>&nbsp;New Book
+    </a>
+  </div>
+</div>
+<hr>
+<div class="d-flex justify-content-start gap-2 flex-wrap">
+  <app-book-card
+    *ngFor="let book of bookResponse.content"
+    [book]="book"
+    [manage]="true"
+    (archive)="archiveBook($event)"
+    (share)="shareBook($event)"
+    (edit)="editBook($event)"
+  ></app-book-card>
+</div>
+<app-navigation
+  [bookResponse]="bookResponse"
+  [size]="size"
+  [page]="page"
+  (goToPage)="goToPage($event)"
+></app-navigation>

@@ -27,7 +27,7 @@ public class BookMapper {
                 .isbn(book.getIsbn())
                 .synopsis(book.getSynopsis())
                 .rate(book.getRate())
-                .archived(false)
+                .archived(book.isArchived())
                 .sharable(book.isSharable())
                 .owner(book.getOwner().getFullName())
                 .cover(FileUtils.readFileFromLocation(book.getBookCover()))

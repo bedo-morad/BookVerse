@@ -14,14 +14,15 @@ public interface BookTransactionHistoryRepository extends JpaRepository<BookTran
             from BookTransactionHistory history
             where history.user.id = :userId
             """)
-    Page<BookTransactionHistory> findAllBorrowedBooks(Pageable pageable, Integer userId);
+    Page<BookTransactionHistory> findAllBorrowedBooks(Pageable pageable, @Param("userId") Integer userId);
 
     @Query("""
             select history
             from BookTransactionHistory history
             where history.book.owner.id =:userId
             """)
-    Page<BookTransactionHistory> findAllReturnedBooks(Pageable pageable, Integer userId);
+    Page<BookTransactionHistory> findAllReturnedBooks(Pageable pageable, @Param("userId") Integer userId);
+
     @Query("""
             select
             (count(*) > 0) As isBorrowed
@@ -30,7 +31,7 @@ public interface BookTransactionHistoryRepository extends JpaRepository<BookTran
             and bookTransactionHistory.book.id = :bookId
             and bookTransactionHistory.returnApproved = false
             """)
-    boolean isAlreadyBorrowedByUser(@Param("bookId") Integer bookId,@Param("userId") Integer userId);
+    boolean isAlreadyBorrowedByUser(@Param("bookId") Integer bookId, @Param("userId") Integer userId);
 
     @Query("""
             select transaction
@@ -40,7 +41,7 @@ public interface BookTransactionHistoryRepository extends JpaRepository<BookTran
             and transaction.returned =false
             and transaction.returnApproved =false
             """)
-    Optional<BookTransactionHistory> findByBookIdAndUserId(@Param("bookId") Integer bookId,@Param("userId") Integer id);
+    Optional<BookTransactionHistory> findByBookIdAndUserId(@Param("bookId") Integer bookId, @Param("userId") Integer id);
 
     @Query("""
             select transaction
@@ -50,5 +51,5 @@ public interface BookTransactionHistoryRepository extends JpaRepository<BookTran
             and transaction.returned =true
             and transaction.returnApproved =false
             """)
-    Optional<BookTransactionHistory> findByBookIdAndOwnerId(@Param("bookId") Integer bookId,@Param("userId") Integer id);
+    Optional<BookTransactionHistory> findByBookIdAndOwnerId(@Param("bookId") Integer bookId, @Param("userId") Integer id);
 }
