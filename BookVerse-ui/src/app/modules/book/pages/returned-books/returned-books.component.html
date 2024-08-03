@@ -1,0 +1,57 @@
+<h3>Returned Books</h3>
+<div
+  *ngIf="message"
+  class="alert "
+  [class.alert-danger]="level==='error'"
+  [class.alert-success]="level==='success'"
+  role="alert"
+>
+  <p>{{ message }}</p>
+</div>
+<hr>
+<div *ngIf="!selectedBook">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Synopsis</th>
+      <th scope="col">ISBN</th>
+      <th scope="col">Rate</th>
+      <th scope="col"><i class="fas fa-cogs"></i></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr
+      *ngFor="let book of returnedBooks.content;let index= index"
+    >
+      <th scope="row">{{ index + 1 }}</th>
+      <td>{{ book.title }}</td>
+      <td>{{ book.authorName }}</td>
+      <td>{{ book.isbn }}</td>
+      <td>
+        <div class="d-flex gap-2">
+          <app-rating [rating]="book.rate || 0"></app-rating>
+          {{ book.rate }}
+        </div>
+      </td>
+      <td style="vertical-align: middle">
+        <div class="d-flex gap-2 justify-content-evenly">
+          <i *ngIf="book.returned" class="cursor-pointer fa-regular fa-paper-plane text-primary" title="Returned"></i>
+          <i
+            *ngIf="!book.returned" title="Not returned"
+            class="cursor-pointer fa-solid fa-paper-plane"></i>
+          <i class="cursor-pointer fa-solid fa-circle-check" (click)="approveBookReturn(book)"
+             [class.text-success]="book.returnApproved"></i>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<app-navigation
+  [bookResponse]="returnedBooks"
+  [size]="size"
+  [page]="page"
+  (goToPage)="goToPage($event)"
+></app-navigation>

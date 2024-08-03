@@ -21,7 +21,7 @@ import {NavigationComponent} from "../../components/navigation/navigation.compon
 export class BookListComponent implements OnInit {
   bookResponse: PageResponseBookResponse = {}
   page = 0
-  size = 4
+  size = 8
   message: string = '';
   level: string = 'success'
 

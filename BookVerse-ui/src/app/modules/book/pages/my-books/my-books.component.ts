@@ -23,7 +23,7 @@ import {BookResponse} from "../../../../services/models/book-response";
 export class MyBooksComponent implements OnInit {
   bookResponse: PageResponseBookResponse = {}
   page = 0
-  size = 4
+  size = 8
 
   constructor(
     private bookService: BookService,

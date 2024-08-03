@@ -6,6 +6,7 @@ Welcome to **BookVerse**, Discover, share, and borrow books within a vibrant com
 
 - [Overview](#overview)
 - [Features](#features)
+- [Diagrams](#diagrams)
 - [Technologies Used](#technologies-used)
     - [Backend](#backend)
     - [Frontend](#frontend)
@@ -25,6 +26,24 @@ you can:
 - Book Borrowing: Implement the necessary checks to determine if a book is borrowable.
 - Book Returning: Users can return borrowed books.
 - Book Return Approval: Functionality to approve book returns.
+
+## Diagrams
+
+#### Class diagram
+
+![Class diagram](screenshots/class-diagram.png)
+
+#### Spring security diagram
+
+![Security diagram](screenshots/security.png)
+
+#### Backend pipeline
+
+![Security diagram](screenshots/be-pipeline.png)
+
+#### Backend pipeline
+
+![Security diagram](screenshots/fe-pipeline.png)
 
 ## Technologies Used
 
