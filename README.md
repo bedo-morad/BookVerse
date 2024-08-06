@@ -37,14 +37,6 @@ you can:
 
 ![Security diagram](screenshots/security.png)
 
-#### Backend pipeline
-
-![Security diagram](screenshots/be-pipeline.png)
-
-#### Backend pipeline
-
-![Security diagram](screenshots/fe-pipeline.png)
-
 ## Technologies Used
 
 ### Backend
@@ -53,11 +45,9 @@ you can:
 - Spring Security 6
 - JWT Token Authentication
 - Spring Data JPA
-- JSR-303 and Spring Validation
+- Spring Validation
 - OpenAPI and Swagger UI Documentation
 - Docker
-- GitHub Actions
-- Keycloak
 
 ### Frontend
 
@@ -70,7 +60,6 @@ you can:
 
 ## Learned
 
-- Implementing a mono repo approach
 - Securing an application using JWT tokens with Spring Security
 - Registering users and validating accounts via email
 - Utilizing inheritance with Spring Data JPA
@@ -80,6 +69,4 @@ you can:
 - Implementing pagination and REST API best practices
 - Using Spring Profiles for environment-specific configurations
 - Documenting APIs using OpenAPI and Swagger UI
-- Implementing business requirements and handling business exceptions
 - Dockerized infrastructure
-- CI/CD pipeline & deployment
