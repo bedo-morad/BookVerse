@@ -37,6 +37,10 @@ you can:
 
 ![Security diagram](screenshots/security.png)
 
+#### Keycloak diagram
+
+![Keycloak diagram](screenshots/keycloak.png)
+
 ## Technologies Used
 
 ### Backend
@@ -48,6 +52,7 @@ you can:
 - Spring Validation
 - OpenAPI and Swagger UI Documentation
 - Docker
+- Keycloak
 
 ### Frontend
 

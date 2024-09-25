@@ -20,6 +20,20 @@ services:
     ports:
       - 1080:1080
       - 1025:1025
+    networks:
+      - book-verse-network
+  keycloak:
+    container_name: keycloak-book-verse
+    image: quay.io/keycloak/keycloak:25.0.4
+    ports:
+      - 9090:8080
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: password
+    command:
+      - "start-dev"
+    networks:
+      - book-verse-network
 networks:
   book-verse-network:
     driver: bridge

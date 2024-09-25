@@ -27,11 +27,11 @@ public class FeedBackService {
     public Integer save(FeedbackRequest request, Authentication connectedUser) {
         Book book = bookRepository.findById(request.bookId())
                 .orElseThrow(() -> new EntityNotFoundException("no book found with id: " + request.bookId()));
-        User user = ((User) connectedUser.getPrincipal());
+//        User user = ((User) connectedUser.getPrincipal());
         if (book.isArchived() || !book.isSharable()) {
             throw new OperationNotPermittedException("The book is either archived or not shareable");
         }
-        if (Objects.equals(book.getOwner().getId(), user.getId())) {
+        if (Objects.equals(book.getCreatedBy(), connectedUser.getName())) {
             throw new OperationNotPermittedException("You can not give feedback to your own book");
         }
         Feedback feedBack = feedbackMapper.toFeedBack(request);
@@ -40,10 +40,10 @@ public class FeedBackService {
 
     public PageResponse<FeedbackResponse> findAllFeedbacks(Integer bookId, int page, int size, Authentication connectedUser) {
         Pageable pageable = PageRequest.of(page, size);
-        User user = ((User) connectedUser.getPrincipal());
+//        User user = ((User) connectedUser.getPrincipal());
         Page<Feedback> feedbacks = feedBackRepository.findAllByBookId(bookId, pageable);
         List<FeedbackResponse> feedbackResponse = feedbacks.stream()
-                .map(feedback -> feedbackMapper.toFeedbackResponse(feedback, user.getId()))
+                .map(feedback -> feedbackMapper.toFeedbackResponse(feedback, connectedUser.getName()))
                 .toList();
         return new PageResponse<>(
                 feedbackResponse,

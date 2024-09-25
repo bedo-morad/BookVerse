@@ -1,15 +1,33 @@
-import {HttpHeaders, HttpInterceptorFn} from '@angular/common/http';
+import {
+  HttpEvent,
+  HttpHandler,
+  HttpHeaders,
+  HttpInterceptor,
+  HttpRequest
+} from '@angular/common/http';
+import {Injectable} from "@angular/core";
+import {KeycloakService} from "../keycloak/keycloak.service";
+import {Observable} from "rxjs";
 
-export const httpTokenInterceptor: HttpInterceptorFn = (req, next) => {
-  const token = localStorage.getItem('token') as string;
-  if (token) {
-    const authReq = req.clone({
-      headers: new HttpHeaders({
-          Authorization: 'Bearer ' + token
-        }
-      )
-    })
-    return next(authReq)
+@Injectable()
+export class httpTokenInterceptor implements HttpInterceptor {
+
+  constructor(
+    private keycloakService: KeycloakService
+  ) {
   }
-  return next(req);
-};
+
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const token = this.keycloakService.keycloak.token
+    if (token) {
+      const authReq = req.clone(
+        {
+          headers: new HttpHeaders({
+            Authorization: `Bearer ${token}`
+          })
+        })
+      return next.handle(authReq)
+    }
+    return next.handle(req)
+  }
+}
