@@ -4,6 +4,7 @@ import {FormsModule} from "@angular/forms";
 import {BookRequest} from "../../../../services/models/book-request";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {BookService} from "../../../../services/services/book.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-manage-book',
@@ -56,7 +57,8 @@ export class ManageBookComponent implements OnInit {
   constructor(
     private bookService: BookService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private toastService: ToastrService
   ) {
   }
 
@@ -83,11 +85,13 @@ export class ManageBookComponent implements OnInit {
             }
           }).subscribe({
             next: () => {
+              this.toastService.success("Book information has been successfully saved")
               this.router.navigate(['/books/my-books'])
             }
           })
         },
         error: (err) => {
+          this.toastService.error("Something went wrong","Error")
           this.errorMsg = err.error.validationErrors;
         }
       }

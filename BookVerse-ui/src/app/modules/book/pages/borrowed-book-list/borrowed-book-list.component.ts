@@ -9,6 +9,7 @@ import {FeedbackRequest} from "../../../../services/models/feedback-request";
 import {FormsModule} from "@angular/forms";
 import {RouterLink} from "@angular/router";
 import {FeedbackService} from "../../../../services/services/feedback.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-borrowed-book-list',
@@ -33,7 +34,8 @@ export class BorrowedBookListComponent implements OnInit {
 
   constructor(
     private bookService: BookService,
-    private feedbackService: FeedbackService
+    private feedbackService: FeedbackService,
+    private toastService: ToastrService
   ) {
   }
 
@@ -70,6 +72,7 @@ export class BorrowedBookListComponent implements OnInit {
         if (withFeedback) {
           this.giveFeedback()
         }
+        this.toastService.success("Book has been returned and owner is notified","Success")
         this.selectedBook = undefined
         this.findAllBorrowedBooks()
       }
@@ -80,7 +83,7 @@ export class BorrowedBookListComponent implements OnInit {
     this.feedbackService.saveFeedBack({
       body: this.feedbackRequest
     }).subscribe({
-      next:()=>{
+      next: () => {
 
       }
     })
